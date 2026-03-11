@@ -1,0 +1,18 @@
+This is a library implementing about making guns have a mag and reloadable.
+It also displays the current ammo in the mag and the ammo in the inventory.
+Feel free to use it as you like just a credit will do.
+In this mod there is :
+1 example gun
+1 example burst gun
+
+For any related question ask me on steam.
+For any unrelated question about the library either google or the ExampleMod will most likely answer your questions if not there is a discord for TmodLoader Modders.
+
+Credits : 
+Lycoris - guy who coded this.
+
+About AI usage there as been use of ai for the postDrawInventory function.
+- ModVersion: {ModVersion}
+- ModHomepage: {ModHomepage}
+- tMLVersion: {tMLVersion}
+- tMLBuildPurpose: {tMLBuildPurpose}

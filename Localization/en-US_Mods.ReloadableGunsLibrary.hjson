@@ -1,0 +1,13 @@
+Items: {
+	BurstGunExample: {
+		DisplayName: BurstGun Example
+		Tooltip: ""
+	}
+
+	ClassicGunExample: {
+		DisplayName: ClassicGun Example
+		Tooltip: ""
+	}
+}
+
+Keybinds.Reload.DisplayName: Reload

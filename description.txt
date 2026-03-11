@@ -1,0 +1,6 @@
+This is a library implementing about making guns have a mag and reloadable.
+It also displays the current ammo in the mag and the ammo in the inventory.
+- ModVersion: {ModVersion}
+- ModHomepage: {ModHomepage}
+- tMLVersion: {tMLVersion}
+- tMLBuildPurpose: {tMLBuildPurpose}
