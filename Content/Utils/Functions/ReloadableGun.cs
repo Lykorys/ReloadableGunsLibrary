@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,7 +7,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-
+using ReloadableGunsLibrary.Content.Config;
 namespace ReloadableGunsLibrary.Content.Utils.Functions
 {
     public class ReloadableGun : GlobalItem
@@ -40,6 +39,11 @@ namespace ReloadableGunsLibrary.Content.Utils.Functions
         }
         public override void HoldItem(Item item, Player player)
         {
+            if (KeybindSystem.Reload.JustPressed) {
+                if (!isReloading && ammo <maxAmmo) {
+                    reload(player); 
+                }
+            }
             if (!IsReloadable||!isReloading) return;
             if (isReloading)
             {
@@ -65,6 +69,16 @@ namespace ReloadableGunsLibrary.Content.Utils.Functions
             {
                 chargeTimer = 0;
             }
+        }
+        public override bool CanUseItem(Item item, Player player)
+        {
+            if (isReloading) return false;
+            if (ammo <= 0) {
+                SoundEngine.PlaySound(SoundID.MenuTick, player.position);
+                return true;
+            }
+
+            return true;
         }
         public void reload(Player player)
         {

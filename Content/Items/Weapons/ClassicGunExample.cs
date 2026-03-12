@@ -5,7 +5,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ReloadableGunsLibrary.Content.Utils.Functions;
-using ReloadableGunsLibrary.Content.Config;
 
 namespace ReloadableGunsLibrary.Content.Items.Weapons
 {
@@ -43,22 +42,6 @@ namespace ReloadableGunsLibrary.Content.Items.Weapons
         }
         public override void SetStaticDefaults() {
             Terraria.Localization.Language.GetOrRegister("Mods.ReloadableGunsLibrary.Items.ClassicGunExample.DisplayName", () => "ClassicGun Example");
-        }
-        public override bool CanUseItem(Player player) {
-            if (Gun.isReloading) return false;
-            if (Gun.ammo <= 0) {
-                SoundEngine.PlaySound(SoundID.MenuTick, player.position);
-                return true;
-            }
-            return true;
-        }
-        public override void HoldItem(Player player)
-        {
-            if (KeybindSystem.Reload.JustPressed) {
-                if (!Gun.isReloading && Gun.ammo < Gun.maxAmmo) {
-                    Gun.reload(player); 
-                }
-            }
         }
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) 
 		{
