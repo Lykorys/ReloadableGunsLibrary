@@ -24,7 +24,6 @@ namespace ReloadableGunsLibrary.Content.Items.Weapons
         };
         private ReloadableGun Gun => Item.GetGlobalItem<ReloadableGun>();
         public override void SetDefaults(){
-
 			Item.rare = ItemRarityID.Green;
             Item.useTime = 3;           
             Item.useAnimation = 9;
@@ -36,12 +35,14 @@ namespace ReloadableGunsLibrary.Content.Items.Weapons
 			Item.noMelee = true;
 			Item.shoot = ProjectileID.Bullet;
 			Item.shootSpeed = 20f; 
-			Item.useAmmo = AmmoID.None; //We want this to be None since the ammo consumption is donne in the shoot function
+			Item.useAmmo = AmmoID.None; //We want this to be None since the ammo consumption is done in the shoot function
             if (Item.TryGetGlobalItem(out ReloadableGun gun)) {
                 gun.IsReloadable=true;
                 gun.maxAmmo = 15;
                 gun.reloadTime = (int)(60 * 1.5);
+                gun.shootSound= shootSound;
                 gun.reloadSound = reloadSound;
+                gun.whenToPlaySound= Item.useAnimation/Item.useTime;
             }
         }
         public override void SetStaticDefaults() {
@@ -52,12 +53,8 @@ namespace ReloadableGunsLibrary.Content.Items.Weapons
 		{
            if (Gun.ammo > 0 && Gun.loadedBullets.Count > 0) {
                 Projectile.NewProjectile(source, position, velocity, Gun.loadedBullets[0], damage, knockback, player.whoAmI);
-                if(Gun.ammo%3==0) SoundEngine.PlaySound(shootSound, player.position);
-                Gun.loadedBullets.RemoveAt(0);
-                Gun.ammo--;
-            }
-            else {
-                SoundEngine.PlaySound(SoundID.MenuTick, player.position);
+                Gun.playSound();
+                Gun.removeBullets();
             }
             return false;
 		}

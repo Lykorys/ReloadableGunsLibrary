@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReloadableGunsLibrary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1a0d8f6d65a057e25f477da271ff7946f9120bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e5a1ac8e84ebf9d7f6e038ef893273d635f2e59")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReloadableGunsLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReloadableGunsLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

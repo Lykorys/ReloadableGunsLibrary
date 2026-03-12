@@ -32,12 +32,14 @@ namespace ReloadableGunsLibrary.Content.Items.Weapons
 			Item.noMelee = true; 
 			Item.shoot = ProjectileID.Bullet;
 			Item.shootSpeed = 20f;
-			Item.useAmmo = AmmoID.None; //We want this to be None since the ammo consumption is donne in the shoot function
+			Item.useAmmo = AmmoID.None; //We want this to be None since the ammo consumption is done in the shoot function
             if (Item.TryGetGlobalItem(out ReloadableGun gun)) {
                 gun.IsReloadable=true;
                 gun.maxAmmo = 8;
                 gun.reloadTime = (int)(60 * 1.9);
                 gun.reloadSound = reloadSound;
+                gun.shootSound= shootSound;
+                gun.whenToPlaySound= Item.useAnimation/Item.useTime;
             }
         }
         public override void SetStaticDefaults() {
@@ -46,10 +48,9 @@ namespace ReloadableGunsLibrary.Content.Items.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) 
 		{
             if (Gun.loadedBullets.Count > 0) {
-                SoundEngine.PlaySound(shootSound, player.position);
                 Projectile.NewProjectile(source, position, velocity, Gun.loadedBullets[0], damage, knockback, player.whoAmI);
-                Gun.loadedBullets.RemoveAt(0);
-                Gun.ammo--;
+                Gun.playSound();
+                Gun.removeBullets();
             }
             return false;
 		}

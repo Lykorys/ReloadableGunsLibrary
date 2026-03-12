@@ -21,7 +21,15 @@ namespace ReloadableGunsLibrary.Content.Utils.Functions
         public override bool InstancePerEntity => true;
         public bool IsReloadable = false;
         public SoundStyle? reloadSound;
+        public SoundStyle shootSound;
         private bool hasPlayedReloadSound = false; 
+        //Use it if your sound is a burst and not a single shot if single shot value= 1 and values should never be negative
+        public int whenToPlaySound=1;
+        private int shootSoundNumber;
+        public override void SetDefaults(Item entity)
+        {
+            shootSoundNumber=whenToPlaySound;
+        }
         public override void SaveData(Item item, TagCompound tag) {
         if (IsReloadable) {
             tag["ammo"] = ammo;
@@ -80,11 +88,30 @@ namespace ReloadableGunsLibrary.Content.Utils.Functions
 
             return true;
         }
+        public void removeBullets()
+        {
+            loadedBullets.RemoveAt(0);
+            ammo--;
+        }
+        public void playSound()
+        {
+            if(shootSoundNumber==whenToPlaySound)
+            {
+                SoundEngine.PlaySound(shootSound, Main.LocalPlayer.position);
+                shootSoundNumber=1;
+            }
+            else
+            {
+                shootSoundNumber++;
+            }
+            
+        }
         public void reload(Player player)
         {
             if (!IsReloadable) return;
             isReloading=true;
             int ammoToRemove = maxAmmo-ammo;
+            shootSoundNumber=whenToPlaySound;
             int slot = AmmoFinderSystem.GetFirstBulletSlot(player);
             Item bullet = player.inventory[slot];
             while (ammoToRemove != 0 && slot!=-1) 
